@@ -19,6 +19,7 @@ export const create = async(req, res)=>{
 
 
 // Read API
+// read All user Data
 export const getAll = async(req, res)=>{
     try {
         
@@ -28,6 +29,24 @@ export const getAll = async(req, res)=>{
             
         }
         res.status(200).json(userData);
+
+    } catch (error) {
+        res.status(500).json({error: error});
+    }
+}
+
+
+
+// read only one user Data
+export const getOne = async(req, res)=>{
+    try {
+        
+        const id = req.params.id;
+        const userExist = await User.findById(id);
+        if (!userExist) {
+            return res.status(404).json({msg: "User data not found"});
+        }
+        res.status(200).json(userExist);
 
     } catch (error) {
         res.status(500).json({error: error});
