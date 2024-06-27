@@ -1,11 +1,14 @@
 import express from "express";
-import { create } from "../controller/userController.js";
+import { create, getAll } from "../controller/userController.js";
 
 
 const route = express.Router();
 
 // --------create route---------
 route.post("/create",create)
+
+// --------read route---------
+route.get("/getall",getAll)
 
 
 
