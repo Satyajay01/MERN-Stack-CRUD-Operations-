@@ -1,20 +1,23 @@
 import React from 'react'
 import './App.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import User from './components/getuser/User';
+import Add from './components/adduser/Add';
+import Edit from './components/updateuser/Edit';
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path:"/",
-      element: "Home page",
+      element: <User/>,
     },
     {
       path:"/add",
-      element: "User add Page",
+      element: <Add/>,
     },
     {
       path:"/edit",
-      element: "Update User Page",
+      element: <Edit/>,
     },
   ])
   return (
