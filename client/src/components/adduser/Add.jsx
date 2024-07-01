@@ -1,23 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Add = () => {
+
+
+  // Handler input box 
+      const users ={
+        fname: "",
+        lname: "",
+        email: "",
+        password: ""
+      }
+      const [user, setUser] = useState(users);
+      const inputHandler = (e) =>{
+        const {name,value}= e.target;
+        setUser({...user, [name]:value});
+        console.log(user);
+    }
   return (
     <div>
         <Link to={'/'}>Back</Link>
         <h3>Add new user </h3>
         <form>
-            <label htmlFor="">First Name: </label>
-            <input type="text" name="fname" id="fname" placeholder='First name' /> <br /> <br />
+            <label>First Name: </label>
+            <input type="text" onChange={inputHandler} name="fname" id="fname" placeholder='First name' /> <br /> <br />
 
-            <label htmlFor="">Last Name: </label>
-            <input type="text" name="lname" id="lname" placeholder='Last name' /><br /> <br />
+            <label>Last Name: </label>
+            <input type="text" onChange={inputHandler} name="lname" id="lname" placeholder='Last name' /><br /> <br />
 
-            <label htmlFor="">Email: </label>
-            <input type="email" name="email" id="email" placeholder='Email' /><br /> <br />
+            <label>Email: </label>
+            <input type="email" onChange={inputHandler} name="email" id="email" placeholder='Email' /><br /> <br />
 
-            <label htmlFor="">Password: </label>
-            <input type="password" name="password" id="password" placeholder='password' /> <br /> <br />
+            <label>Password: </label>
+            <input type="password" onChange={inputHandler} name="password" id="password" placeholder='password' /> <br /> <br />
 
             <div>
                 <button type="submit">Add User</button>
