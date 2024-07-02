@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const Add = () => {
 
 
-  // Handle input box 
+  // Handler input box 
       const users ={
         fname: "",
         lname: "",
@@ -20,19 +20,19 @@ const Add = () => {
         console.log(user);
     }
 
-        // send data from the database and redirect users page
-        const navigate = useNavigate();
 
-        const submitForm = async(e)=>{
-          e.preventDefault();
-          await axios.post("http://localhost:8000/api/create", user)
-          .then((res)=>{
-            console.log(res);
-            toast.success("Signup Successful");
-            navigate("/");
-          }).catch(error=>toast.error("Error: " + error.response.data.message));
-        }
-
+      // send data from the database and redirect users page
+      const navigate = useNavigate(); //redirect users page
+      
+      const submitForm = async(e)=>{
+        e.preventDefault();
+        await axios.post("http://localhost:8000/api/create", user)
+        .then((res)=>{
+          console.log(res);
+          toast.success("Signup Successful");
+          navigate("/"); //redirect users page
+        }).catch(error=>toast.error("Error: " + error.response.data.message));
+      }
   return (
     <div>
         <Link to={'/'}>Back</Link>
