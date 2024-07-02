@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import toast from "react-hot-toast";
 
 const Add = () => {
 
 
-  // Handler input box 
+  // Handle input box 
       const users ={
         fname: "",
         lname: "",
@@ -17,11 +19,25 @@ const Add = () => {
         setUser({...user, [name]:value});
         console.log(user);
     }
+
+        // send data from the database and redirect users page
+        const navigate = useNavigate();
+
+        const submitForm = async(e)=>{
+          e.preventDefault();
+          await axios.post("http://localhost:8000/api/create", user)
+          .then((res)=>{
+            console.log(res);
+            toast.success("Signup Successful");
+            navigate("/");
+          }).catch(error=>toast.error("Error: " + error.response.data.message));
+        }
+
   return (
     <div>
         <Link to={'/'}>Back</Link>
         <h3>Add new user </h3>
-        <form>
+        <form onSubmit={submitForm}>
             <label>First Name: </label>
             <input type="text" onChange={inputHandler} name="fname" id="fname" placeholder='First name' /> <br /> <br />
 
