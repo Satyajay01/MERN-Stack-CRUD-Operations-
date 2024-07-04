@@ -39,7 +39,7 @@ const User = () => {
                             <td>{user.email}</td>
                             <td>
                                 <button>Delete</button>
-                                <Link to={'/edit'}>Edit</Link>
+                                <Link to={`/edit/`+user._id}>Edit</Link>
                             </td>
                         </tr>
                             
