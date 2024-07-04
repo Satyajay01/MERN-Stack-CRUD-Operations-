@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from "axios"
+import toast from "react-hot-toast"
 
 const Edit = () => {
 
@@ -29,11 +30,27 @@ const Edit = () => {
     })
   },[id])
 
+
+  // Update user 
+
+  const navigate = useNavigate(); //redirect users page
+
+  const SubmitForm = async(e)=>{
+    e.preventDefault();
+    await axios.put(`http://localhost:8000/api/update/${id}`, user)
+    .then((res)=>{
+      console.log(res);
+      toast.success(res.data.msg);
+      navigate("/"); //redirect users page
+    }).catch(error=>toast.error("Error: " + error.response.data.message));
+  }
+
+
   return (
     <div>
     <Link to={'/'}>Back</Link>
     <h3>Update new user </h3>
-    <form>
+    <form onSubmit={SubmitForm}>
         <label htmlFor="">First Name: </label>
         <input type="text" onChange={inputChangeHandler} value={user.fname} name="fname" id="fname" placeholder='First name' /> <br /> <br />
 
