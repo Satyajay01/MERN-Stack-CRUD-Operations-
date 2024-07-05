@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios"
+import toast from 'react-hot-toast';
 
 const User = () => {
 
+    // fetch User 
     const [users, setUsers]= useState([]);
     useEffect(()=>{
         const fetchData = async()=>{
@@ -16,6 +18,18 @@ const User = () => {
         }
         fetchData();
     },[])
+
+
+    // Delete User 
+    const deleteUser = async (userId)=>{
+        await axios.delete(`http://localhost:8000/api/delete/${userId}`)
+        .then((res)=>{
+            setUsers((prevUser)=> prevUser.filter((user)=>user._id !== userId)) // remove deleted user from table
+            toast.success(res.data.msg)
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
 
     return (
     <div className='useTable'>
@@ -38,7 +52,7 @@ const User = () => {
                             <td>{user.fname} {user.lname}</td>
                             <td>{user.email}</td>
                             <td>
-                                <button>Delete</button>
+                                <button onClick={()=>deleteUser(user._id)}>Delete</button>
                                 <Link to={`/edit/`+user._id}>Edit</Link>
                             </td>
                         </tr>
