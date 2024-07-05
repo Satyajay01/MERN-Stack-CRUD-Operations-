@@ -40,7 +40,7 @@ const Edit = () => {
     await axios.put(`http://localhost:8000/api/update/${id}`, user)
     .then((res)=>{
       console.log(res);
-      toast.success(res.data.msg);
+      toast.success(res.data.smg);
       navigate("/"); //redirect users page
     }).catch(error=>toast.error("Error: " + error.response.data.message));
   }
